@@ -230,8 +230,8 @@
 			<y>188.0</y>
 		</state>
 		<state id="54" name="q54">
-			<x>616.0</x>
-			<y>98.0</y>
+			<x>611.0</x>
+			<y>76.0</y>
 			<final/>
 		</state>
 		<state id="55" name="q55">
@@ -244,8 +244,8 @@
 			<final/>
 		</state>
 		<state id="57" name="q57">
-			<x>471.0</x>
-			<y>288.0</y>
+			<x>456.0</x>
+			<y>292.0</y>
 		</state>
 		<state id="58" name="q58">
 			<x>472.0</x>
@@ -374,8 +374,8 @@
 			<y>218.0</y>
 		</state>
 		<state id="87" name="q87">
-			<x>693.0</x>
-			<y>98.0</y>
+			<x>695.0</x>
+			<y>75.0</y>
 			<final/>
 		</state>
 		<state id="88" name="q88">
@@ -554,6 +554,11 @@
 			<read>/</read>
 		</transition>
 		<transition>
+			<from>49</from>
+			<to>49</to>
+			<read>digito,letra</read>
+		</transition>
+		<transition>
 			<from>31</from>
 			<to>32</to>
 			<read>h</read>
@@ -604,11 +609,6 @@
 			<read>]</read>
 		</transition>
 		<transition>
-			<from>53</from>
-			<to>53</to>
-			<read>letra</read>
-		</transition>
-		<transition>
 			<from>49</from>
 			<to>50</to>
 			<read>*</read>
@@ -622,11 +622,6 @@
 			<from>0</from>
 			<to>86</to>
 			<read>digito</read>
-		</transition>
-		<transition>
-			<from>49</from>
-			<to>49</to>
-			<read>letra,digito,simbolo</read>
 		</transition>
 		<transition>
 			<from>0</from>
@@ -742,6 +737,11 @@
 			<from>75</from>
 			<to>76</to>
 			<read>=</read>
+		</transition>
+		<transition>
+			<from>53</from>
+			<to>53</to>
+			<read>letra, digito</read>
 		</transition>
 		<transition>
 			<from>67</from>
