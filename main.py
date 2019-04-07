@@ -48,6 +48,7 @@ def leArquivo(nomeArquivo):
                 palavra = palavra + caracter
                 lexemas.append(palavra)
             else:
+                lerCaracter = False
                 lexemas.append(palavra)
             palavra = ""
 
