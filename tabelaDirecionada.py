@@ -20,7 +20,7 @@ def geraTabelaDirecionada():
         tabela[int(valores[0])][entrada[valores[1]]] = int(valores[2])
         linha = arquivo.readline()
     arquivo.close()
-    for i in range(89):
+    for i in range(90):
         for j in range(32):
             print(tabela[i][j], end=' ')
         print()
