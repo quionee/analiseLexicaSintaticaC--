@@ -1,3 +1,5 @@
+from tabelaDirecionada import *
+
 # função que lê o arquivo e retorna a tabela de lexemas
 def leArquivo(nomeArquivo):
     # abrindo o arquivo
@@ -114,6 +116,12 @@ def leArquivo(nomeArquivo):
 def main():
     nomeArquivo = input("Nome arquivo: ")
     lexemas = leArquivo(nomeArquivo)
+
+    tabela = geraTabelaDirecionada()# tabela preenchida
+
+    for i in range(len(lexemas)):# verificação de todos do lexemas
+        x = verifica(lexemas[i],tabela)
+        print("<",lexemas[i],",", x ,">")
 
 if __name__ == "__main__":
     main()
