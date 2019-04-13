@@ -1,4 +1,6 @@
 from tabelaDirecionada import *
+from token import Token
+from tabelaDeSimbolos import TabelaDeSimbolos
 
 # função que lê o arquivo e retorna a tabela de lexemas
 def leArquivo(nomeArquivo):
@@ -14,7 +16,7 @@ def leArquivo(nomeArquivo):
     # variável que verifica se faz-se necessário a leitura de um caracter do arquivo
     lerCaracter = True
     # while roda enquanto há algo para ler do arquivo
-    qtdLinhas = 0
+    qtdLinhas = 1
     qtdColunas = -1
 
     while (lendoArquivo):
@@ -195,15 +197,31 @@ def leArquivo(nomeArquivo):
     print(lexemas)
     return lexemas
 
+def criaTabelaDeSimbolos(lexemas, tabelaDeTransicao):
+    tabelaDeSimbolos = TabelaDeSimbolos()
+
+    tokens = []
+
+    for i in range(len(lexemas)): # verificação de todos do lexemas
+        tipo = verifica(lexemas[i], tabelaDeTransicao)
+        valor = lexemas[i]
+        if (tipo == "identificador") or (tipo == "constNumerica"):
+            valor = tabelaDeSimbolos.adiciona(lexemas[i])
+        tokens.append(Token(tipo, valor))
+
+    print("TOKENS")
+    for i in range(len(tokens)):
+        print("<", tokens[i].getTipo(), ",", tokens[i].getValor(), ">")
+    
+    print("TABELA DE SIMBOLOS")
+    tabelaDeSimbolos.imprime()
+
 def main():
     nomeArquivo = input("Nome arquivo: ")
     lexemas = leArquivo(nomeArquivo)
     
-    tabela = geraTabelaDirecionada() # tabela preenchida
-
-    # for i in range(len(lexemas)):# verificação de todos do lexemas
-    #     x = verifica(lexemas[i],tabela)
-    #     print("<",lexemas[i],",", x ,">")
+    tabelaDeTransicao = geraTabelaDirecionada() # tabela preenchida
+    tokens = criaTabelaDeSimbolos(lexemas, tabelaDeTransicao)
 
 if __name__ == "__main__":
     main()
