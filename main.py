@@ -17,10 +17,10 @@ def leArquivo(nomeArquivo):
     lerCaracter = False
     # while roda enquanto há algo para ler do arquivo
     qtdLinhas = 1
-    qtdColunas = -1
 
     caracterAux = "A"
     caracter = arquivo.read(1)
+    qtdColunas = 1
     while (lendoArquivo):
         if (lerCaracter): # se "lerCaracter" == true, um caracter é lido
             caracterAux = caracter
@@ -28,8 +28,6 @@ def leArquivo(nomeArquivo):
             qtdColunas += 1
         else: # se "lerCaracter" == false, nada é lido
             lerCaracter = True
-
-        print("caracterAux: ", caracterAux, "\ncaracter: ", caracter)
 
         # se o caracter lido for vazio, significa que o arquivo terminou e o while então termina sua execução
         if (caracter == ""):
@@ -50,10 +48,7 @@ def leArquivo(nomeArquivo):
         # a variável qtdLinhas é incrementada
         elif (caracter == "\n"):
             qtdLinhas += 1
-            qtdColunas -= 1
-            # print ("qtdColunas: ", qtdColunas)
-            # print ("qtdLinhas: ", qtdLinhas, "\n")
-            qtdColunas = -1
+            qtdColunas = 0
             # condição utilizada para verificar se a palavra está vazia, caso não esteja,
             # ela é armazenada na lista de lexemas
             if (palavra != ""):
@@ -96,9 +91,7 @@ def leArquivo(nomeArquivo):
 
             if (caracter == "\n"):
                 qtdLinhas += 1
-                # print ("qtdColunas: ", qtdColunas)
-                # print ("qtdLinhas: ", qtdLinhas, "\n")
-                qtdColunas = -1
+                qtdColunas = 0
             else:
                 qtdColunas += 1
 
@@ -110,9 +103,7 @@ def leArquivo(nomeArquivo):
 
                 if (caracter == "\n"):
                     qtdLinhas += 1
-                    # print ("qtdColunas: ", qtdColunas)
-                    # print ("qtdLinhas: ", qtdLinhas, "\n")
-                    qtdColunas = -1
+                    qtdColunas = 0
                 else:
                     qtdColunas += 1
                 
@@ -122,9 +113,7 @@ def leArquivo(nomeArquivo):
 
                     if (caracter == "\n"):
                         qtdLinhas += 1
-                        # print ("qtdColunas: ", qtdColunas)
-                        # print ("qtdLinhas: ", qtdLinhas, "\n")
-                        qtdColunas = -1
+                        qtdColunas = 0
                     else:
                         qtdColunas += 1
 
@@ -165,15 +154,17 @@ def leArquivo(nomeArquivo):
         elif ((ord(caracter) >= ord("a")) and (ord(caracter) <= ord("z"))):
             palavra = palavra + caracter
             caracter = arquivo.read(1)
+            qtdColunas += 1
             while (((ord(caracter) >= ord("0")) and (ord(caracter) <= ord("9"))) or ((ord(caracter) >= ord("a")) and (ord(caracter) <= ord("z")))):
                 palavra = palavra + caracter
                 caracter = arquivo.read(1)
+                qtdColunas += 1
             lerCaracter = False
 
         # condição usada para ler números e tratar erros léxicos
         elif (not((ord(caracter) >= ord("a")) and (ord(caracter) <= ord("z")))):
-            print("CARALHOOOOOOOOOOOO")
             colunaAtual = qtdColunas
+            linhaAtual = qtdLinhas
             if ((ord(caracter) >= ord("0")) and (ord(caracter) <= ord("9"))):
                 palavra = palavra + caracter
                 terminouNumero = False
@@ -192,12 +183,10 @@ def leArquivo(nomeArquivo):
                                 terminou = True
                             elif ((caracter == "\n") or (caracter == "")):
                                 qtdLinhas += 1
-                                # print ("qtdColunas: ", qtdColunas)
-                                # print ("qtdLinhas: ", qtdLinhas, "\n")
-                                qtdColunas = -1
+                                qtdColunas = 0
                                 terminou = True
                         terminouNumero = True
-                        print("\n*** Erro lexico na linha ", qtdLinhas, " coluna ", colunaAtual, " ***")
+                        print("\n  ***** Erro lexico na linha ", linhaAtual, " coluna ", colunaAtual, " *****")
                     else:
                         lerCaracter = False
                         terminouNumero = True
@@ -205,8 +194,8 @@ def leArquivo(nomeArquivo):
 
         # o caracter lido é concatenado à palavra caso não satisfaza nenhuma das condições anteriores
         else:
+            print ("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEELLLLLLLLLLSSSSSSSSSSSEEEEEEEEEEEEE")
             palavra = palavra + caracter
-
     return lexemas
 
 def criaTokens(lexemas, tabelaDeTransicao, tabelaDeSimbolos):
@@ -229,7 +218,7 @@ def main():
     nomeArquivo = input("Nome arquivo: ")
     
     lexemas = leArquivo(nomeArquivo)
-    print(lexemas)
+    print("\n\n  ----- Lexemas -----\n\n", lexemas)
     
     tabelaDeTransicao = geraTabelaDirecionada() # tabela preenchida
     #~ imprimeTabela(tabelaDeTransicao)
@@ -242,7 +231,7 @@ def main():
         tokens[i].imprime()
        
     tabelaDeSimbolos.imprime()
-    
+    print()
 
 if __name__ == "__main__":
     main()

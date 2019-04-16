@@ -1,4 +1,4 @@
-struct aluno {
+5struct aluno {
 	int t454t;
         float 7nota;
 	char sexo;
