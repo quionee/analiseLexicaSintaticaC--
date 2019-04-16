@@ -1,0 +1,28 @@
+struct Aluno {
+    float nota;
+	char sexo;
+	int periodo;
+}
+
+int nota (int periodo){
+    int nota = 0;
+    if (periodo == 3){
+	   nota = +10;
+	}
+	return nota
+}
+
+int x = 10;
+int i = 0;
+/* laco para somar x = x + 10, 10 vezes */
+
+while (i < 10)  {
+    x = x +10;
+	i = i+ 1;
+}
+
+if(x >= 100){
+    
+} else {
+
+}
