@@ -10,3 +10,6 @@ class Token:
     
     def getValor(self):
         return self.valor
+    
+    def imprime(self):
+        print("<", self.tipo, ",", self.valor, ">")

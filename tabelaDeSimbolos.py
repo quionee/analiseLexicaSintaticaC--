@@ -24,9 +24,10 @@ class TabelaDeSimbolos:
         return False
     
     def imprime(self):
+        print("\n\n     ----- Tabela de Símbolos -----\n")
         tabela = PrettyTable(["Entrada", "Lexema", "Tipo"])
-        tabela.align["Entrada"] = "l"
-        tabela.align["Lexema"] = "l"
+        tabela.align["Entrada"] = "1"
+        tabela.align["Lexema"] = "1"
         tabela.align["Tipo"] = "1"
 
         for i in range(self.qtdLinhas):

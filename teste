@@ -1,5 +1,6 @@
-struct Aluno {
-    float nota;
+struct aluno {
+	int t454t;
+        float 7nota;
 	char sexo;
 	int periodo;
 }
@@ -11,8 +12,8 @@ int nota (int periodo){
 	return nota;
 }
 
-void imprimeAlunos() {
-    /* imprime todoso os Alunos */
+void imprimealunos() {
+    /* imprime todoso os alunos */
 }
 
 int main() {

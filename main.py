@@ -14,18 +14,22 @@ def leArquivo(nomeArquivo):
     # lista que armazena os lexemas encontrados no arquivo
     lexemas = []
     # variável que verifica se faz-se necessário a leitura de um caracter do arquivo
-    lerCaracter = True
+    lerCaracter = False
     # while roda enquanto há algo para ler do arquivo
     qtdLinhas = 1
     qtdColunas = -1
 
+    caracterAux = "A"
+    caracter = arquivo.read(1)
     while (lendoArquivo):
         if (lerCaracter): # se "lerCaracter" == true, um caracter é lido
-            caracter = arquivo.read(1)
             caracterAux = caracter
+            caracter = arquivo.read(1)
             qtdColunas += 1
         else: # se "lerCaracter" == false, nada é lido
             lerCaracter = True
+
+        print("caracterAux: ", caracterAux, "\ncaracter: ", caracter)
 
         # se o caracter lido for vazio, significa que o arquivo terminou e o while então termina sua execução
         if (caracter == ""):
@@ -59,7 +63,7 @@ def leArquivo(nomeArquivo):
         # condição usada para verificar os delimitadores "{", "[", "}", "]", ";",
         # e o operador aritmético "*"
         elif ((caracter == "{") or (caracter == "[") or (caracter == "}") or (caracter == "]")
-        or (caracter == "*") or (caracter == ";")):
+        or (caracter == "(") or (caracter == ")") or (caracter == "*") or (caracter == ";")):
             if (palavra != ""):
                 lexemas.append(palavra)
                 palavra = ""
@@ -158,7 +162,17 @@ def leArquivo(nomeArquivo):
             else:
                 lerCaracter = False
 
+        elif ((ord(caracter) >= ord("a")) and (ord(caracter) <= ord("z"))):
+            palavra = palavra + caracter
+            caracter = arquivo.read(1)
+            while (((ord(caracter) >= ord("0")) and (ord(caracter) <= ord("9"))) or ((ord(caracter) >= ord("a")) and (ord(caracter) <= ord("z")))):
+                palavra = palavra + caracter
+                caracter = arquivo.read(1)
+            lerCaracter = False
+
+        # condição usada para ler números e tratar erros léxicos
         elif (not((ord(caracter) >= ord("a")) and (ord(caracter) <= ord("z")))):
+            print("CARALHOOOOOOOOOOOO")
             colunaAtual = qtdColunas
             if ((ord(caracter) >= ord("0")) and (ord(caracter) <= ord("9"))):
                 palavra = palavra + caracter
@@ -183,7 +197,7 @@ def leArquivo(nomeArquivo):
                                 qtdColunas = -1
                                 terminou = True
                         terminouNumero = True
-                        # print("\nerro lexico na linha ", qtdLinhas, " coluna ", colunaAtual)
+                        print("\n*** Erro lexico na linha ", qtdLinhas, " coluna ", colunaAtual, " ***")
                     else:
                         lerCaracter = False
                         terminouNumero = True
@@ -192,14 +206,10 @@ def leArquivo(nomeArquivo):
         # o caracter lido é concatenado à palavra caso não satisfaza nenhuma das condições anteriores
         else:
             palavra = palavra + caracter
-    
-    print ("qtdLinhas: ", qtdLinhas)
-    print(lexemas)
+
     return lexemas
 
-def criaTabelaDeSimbolos(lexemas, tabelaDeTransicao):
-    tabelaDeSimbolos = TabelaDeSimbolos()
-
+def criaTokens(lexemas, tabelaDeTransicao, tabelaDeSimbolos):
     tokens = []
 
     for i in range(len(lexemas)): # verificação de todos do lexemas
@@ -209,19 +219,30 @@ def criaTabelaDeSimbolos(lexemas, tabelaDeTransicao):
             valor = tabelaDeSimbolos.adiciona(lexemas[i], tipo)
         tokens.append(Token(tipo, valor))
 
-    print("TOKENS")
-    for i in range(len(tokens)):
-        print("<", tokens[i].getTipo(), ",", tokens[i].getValor(), ">")
-    
-    print("TABELA DE SIMBOLOS")
-    tabelaDeSimbolos.imprime()
+    return tokens
+
+def criaTabelaDeSimbolos():
+    tabelaDeSimbolos = TabelaDeSimbolos()
+    return tabelaDeSimbolos
 
 def main():
     nomeArquivo = input("Nome arquivo: ")
+    
     lexemas = leArquivo(nomeArquivo)
+    print(lexemas)
     
     tabelaDeTransicao = geraTabelaDirecionada() # tabela preenchida
-    tokens = criaTabelaDeSimbolos(lexemas, tabelaDeTransicao)
+    #~ imprimeTabela(tabelaDeTransicao)
+    
+    tabelaDeSimbolos = criaTabelaDeSimbolos()
+    
+    tokens = criaTokens(lexemas, tabelaDeTransicao, tabelaDeSimbolos)
+    print("\n\n  ----- Tokens -----\n")
+    for i in range(len(tokens)):
+        tokens[i].imprime()
+       
+    tabelaDeSimbolos.imprime()
+    
 
 if __name__ == "__main__":
     main()
