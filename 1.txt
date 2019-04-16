@@ -1,4 +1,4 @@
-5432if oi 432	> 354hu ola  
+if (oi > 432) 354hu ola  
  }
 	while anjo <=4{
     desgraca3
