@@ -150,7 +150,8 @@ def leArquivo(nomeArquivo):
                         lerCaracter = False
             else:
                 lerCaracter = False
-
+		# condição usada para ler letras de [a...z]
+		# a leitura continua até que um caractere não esteja entre [a...z] e nem em [0...9]
         elif ((ord(caracter) >= ord("a")) and (ord(caracter) <= ord("z"))):
             palavra = palavra + caracter
             caracter = arquivo.read(1)
@@ -190,14 +191,12 @@ def leArquivo(nomeArquivo):
                     else:
                         lerCaracter = False
                         terminouNumero = True
-                    
 
-        # o caracter lido é concatenado à palavra caso não satisfaza nenhuma das condições anteriores
-        else:
-            print ("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEELLLLLLLLLLSSSSSSSSSSSEEEEEEEEEEEEE")
-            palavra = palavra + caracter
     return lexemas
 
+# função que cria os Tokens, cada Token é um objeto da classe "token",
+# o tipo de cada token é verificado na tabela de transição e o valor
+# é obtido através do índice ta tabela de símbolos
 def criaTokens(lexemas, tabelaDeTransicao, tabelaDeSimbolos):
     tokens = []
 
@@ -210,6 +209,7 @@ def criaTokens(lexemas, tabelaDeTransicao, tabelaDeSimbolos):
 
     return tokens
 
+
 def criaTabelaDeSimbolos():
     tabelaDeSimbolos = TabelaDeSimbolos()
     return tabelaDeSimbolos
@@ -221,7 +221,7 @@ def main():
     print("\n\n  ----- Lexemas -----\n\n", lexemas)
     
     tabelaDeTransicao = geraTabelaDirecionada() # tabela preenchida
-    #~ imprimeTabela(tabelaDeTransicao)
+    
     
     tabelaDeSimbolos = criaTabelaDeSimbolos()
     

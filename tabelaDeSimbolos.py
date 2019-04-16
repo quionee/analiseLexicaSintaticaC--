@@ -8,7 +8,8 @@ class TabelaDeSimbolos:
         self.qtdLinhas = 0
     
     def adiciona(self, lexema, tipo):
-        if (not(self.consulta(lexema))):
+        consulta = self.consulta(lexema)
+        if (not(consulta)):
             self.qtdLinhas += 1
             linha = [0] * 3
             linha[0] = self.qtdLinhas
@@ -16,11 +17,13 @@ class TabelaDeSimbolos:
             linha[2] = tipo
             self.tabelaDeSimbolos.append(linha)
             return self.qtdLinhas
+        else:
+            return consulta
 
     def consulta(self, lexema):
         for i in range(len(self.tabelaDeSimbolos)):
             if (self.tabelaDeSimbolos[i][1] == lexema):
-                return True
+                return self.tabelaDeSimbolos[i][0]
         return False
     
     def imprime(self):
