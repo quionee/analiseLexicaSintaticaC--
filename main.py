@@ -1,6 +1,7 @@
 from tabelaDirecionada import *
 from token import Token
 from tabelaDeSimbolos import TabelaDeSimbolos
+from parser import Parser
 
 # função que lê o arquivo e retorna a tabela de lexemas
 def leArquivo(nomeArquivo):
@@ -58,7 +59,7 @@ def leArquivo(nomeArquivo):
         # condição usada para verificar os delimitadores "{", "[", "}", "]", ";",
         # e o operador aritmético "*"
         elif ((caracter == "{") or (caracter == "[") or (caracter == "}") or (caracter == "]")
-        or (caracter == "(") or (caracter == ")") or (caracter == "*") or (caracter == ";")):
+        or (caracter == "(") or (caracter == ")") or (caracter == "*") or (caracter == ";") or (caracter == ",")):
             if (palavra != ""):
                 lexemas.append(palavra)
                 palavra = ""
@@ -222,16 +223,18 @@ def main():
     
     tabelaDeTransicao = geraTabelaDirecionada() # tabela preenchida
     
-    
     tabelaDeSimbolos = criaTabelaDeSimbolos()
     
     tokens = criaTokens(lexemas, tabelaDeTransicao, tabelaDeSimbolos)
     print("\n\n  ----- Tokens -----\n")
     for i in range(len(tokens)):
         tokens[i].imprime()
-       
+
     tabelaDeSimbolos.imprime()
     print()
+
+    parser = Parser(tokens, tabelaDeSimbolos.tabelaDeSimbolos)
+    parser.programa()
 
 if __name__ == "__main__":
     main()
