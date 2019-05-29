@@ -42,12 +42,14 @@ class Parser:
             return False
 
     def declaracao(self):
+        indice = self.posicaoAtual
         if (self.var_declaracao()):
             print("VAR_DECLARACAO")
             return True
-        # elif (self.fun_declaracao()):
-        #     print("FUN_DECLARACAO()")
-        #     return True
+        elif (self.fun_declaracao()):
+            self.posicaoAtual = indice
+            print("FUN_DECLARACAO()")
+            return True
         else:
             return False
 
@@ -57,21 +59,28 @@ class Parser:
             if (self.ident()):
                 self.proximoToken()
                 if (self.match(";")):
+                    print("A")
                     return True
                 elif (self.abre_colchete()):
+                    print("B")
                     self.proximoToken()
                     if (self.num_int()):
+                        print("C")
                         self.proximoToken()
                         if (self.fecha_colchete()):
+                            print("D")
                             self.proximoToken()
                             while (self.abre_colchete()):
+                                print("E")
                                 self.proximoToken()
                                 if (self.num_int()):
+                                    print("F")
                                     self.proximoToken()
                                     if (self.fecha_colchete()):
+                                        print("G")
                                         self.proximoToken()
                                         return self.match(";")
-        return False
+        #~ return False
     
     def tipo_especificador(self):
         if ((self.match("int")) or (self.match("float")) or (self.match("char")) or (self.match("void"))):
@@ -134,8 +143,26 @@ class Parser:
 
     # def expressao(self):
     
-    # def var(self):
-    
+    def var(self):
+        ident()
+        self.proximoToken()
+        if (self.abre_colchete()):
+            self.proximoToken()
+            if (self.expressao()):
+                self.proximoToken()
+                if (self.fecha_colchete()):
+                    self.proximoToken()
+                    while (self.abre_colchete()):
+                        self.proximoToken()
+                        if (self.expressao()):
+                            self.proximoToken()
+                            if not(self.fecha_colchete()):
+                                return False
+                        else:
+                            return False
+                    return True
+        return False
+
     # def expressao_simples(self):
 
     def relacional(self):
@@ -147,11 +174,19 @@ class Parser:
 
     # def expressao_soma(self):
     
-    # def soma(self):
+    def soma(self):
+        if ((self.match("+")) or (self.match("-"))):
+            return True
+        else:
+            return False
 
     # def termo(self):
 
-    # def mult(self):
+    def mult(self):
+        if ((self.match("*")) or (self.match("/"))):
+            return True
+        else:
+            return False
 
     # def fator(self):
     #     if(self.match("("))
@@ -164,7 +199,23 @@ class Parser:
         
     # def arg_lista(self):
     
-    # def num(self):
+    def num(self): # A TERMINAR
+        if ((self.match("+")) or (self.match("-"))):
+            i = 1
+            numero = self.tokenAtual
+            numero = str(numero)
+            self.tokenAtual = numero[0]
+            if (self.digito()):
+                aux = True
+                while (i < len(numero)):
+                    self.tokenAtual = numero[i]
+                    if not(self.digito()):
+                        aux = False
+                    i += 1
+                return aux
+            else:
+                print("QUERO IR EMBORA")
+                return False
 
     def num_int(self):
         i = 1
