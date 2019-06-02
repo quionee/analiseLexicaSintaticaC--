@@ -218,6 +218,8 @@ def criaTokens(lexemas, tabelaDeTransicao, tabelaDeSimbolos, linhasColunas):
             valor = tabelaDeSimbolos.adiciona(lexemas[i], tipo)
         tokens.append(Token(tipo, valor,linhasColunas[i][0], linhasColunas[i][1]))
 
+    # tokens.append(Token("#", "#", 0, 0))
+
     return tokens
 
 

@@ -1,8 +1,16 @@
-9ui mano;
-struct lorena {
+int x;
+float y;
+float i;
+
+int frutas(int x, int y) {
+    int mana;
     int x;
-    int y;
+    x = 10;
+    if (mana == 3){
+        int mana;
+    }
+    
+    /*i = 2 - x;
+    i = x - 3;
+    */
 }
-float x1;
-int x2;
-char oi[5];
