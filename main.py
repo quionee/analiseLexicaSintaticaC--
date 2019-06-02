@@ -4,7 +4,7 @@ from tabelaDeSimbolos import TabelaDeSimbolos
 from parser import Parser
 
 # função que lê o arquivo e retorna a tabela de lexemas
-def leArquivo(nomeArquivo):
+def leArquivo(nomeArquivo, linhasColunas):
     # abrindo o arquivo
     arquivo = open(nomeArquivo)
     # variável que verifica se o arquivo terminou
@@ -60,13 +60,16 @@ def leArquivo(nomeArquivo):
         # e o operador aritmético "*"
         elif ((caracter == "{") or (caracter == "[") or (caracter == "}") or (caracter == "]")
         or (caracter == "(") or (caracter == ")") or (caracter == "*") or (caracter == ";") or (caracter == ",")):
+            linhasColunas.append([qtdLinhas, qtdColunas])
             if (palavra != ""):
                 lexemas.append(palavra)
                 palavra = ""
             lexemas.append(caracter)
+            
 
         # condição usada para verificar os operadores relacionais ">=", "<=", ">", "<", "!=", "=="
         elif ((caracter == ">") or (caracter == "<") or (caracter == "=") or (caracter == "!")):
+            linhasColunas.append([qtdLinhas, qtdColunas])
             if (palavra != ""):
                 lexemas.append(palavra)
             palavra = caracter
@@ -84,6 +87,7 @@ def leArquivo(nomeArquivo):
 
         # condição usada para verificar o operador aritmético "/" para divisão
         elif (caracter == "/"):
+            linhasColunas.append([qtdLinhas, qtdColunas])
             if (palavra != ""):
                 lexemas.append(palavra)
                 palavra = ""
@@ -99,6 +103,7 @@ def leArquivo(nomeArquivo):
             # caso o caracter seguinte a "/" seja "*" significa que temos um comentário,
             # dessa forma, nada lido até "*/" é considerado para a lista de lexemas
             if (caracter == "*"):
+                linhasColunas.pop()
                 terminouComentario = False
                 caracter = arquivo.read(1)
 
@@ -124,21 +129,23 @@ def leArquivo(nomeArquivo):
                     
             else:
                 lexemas.append(palavra)
+                
             palavra = ""
 
         # condição usada para verificar os operadores aritméticos "+" e "-"
         elif ((caracter == "+") or (caracter == "-")):
+            linhasColunas.append([qtdLinhas, qtdColunas])
             if (palavra != ""):
                 lexemas.append(palavra)
                 palavra = ""
             palavra = caracter
             caracter = arquivo.read(1)
-
             qtdColunas += 1
             
             # entrar nesse if significa que o operador aritmético é para indicar se o número
             # lido posteriormente é positivo ou negativo
             if ((ord(caracter) >= ord("0")) and (ord(caracter) <= ord("9"))):
+                linhasColunas.append([qtdLinhas, qtdColunas])
                 lendoNumero = True
                 palavra = palavra + caracter
                 while (lendoNumero):
@@ -154,6 +161,7 @@ def leArquivo(nomeArquivo):
 		# condição usada para ler letras de [a...z]
 		# a leitura continua até que um caractere não esteja entre [a...z] e nem em [0...9]
         elif ((ord(caracter) >= ord("a")) and (ord(caracter) <= ord("z"))):
+            linhasColunas.append([qtdLinhas, qtdColunas])
             palavra = palavra + caracter
             caracter = arquivo.read(1)
             qtdColunas += 1
@@ -165,6 +173,7 @@ def leArquivo(nomeArquivo):
 
         # condição usada para ler números e tratar erros léxicos
         elif (not((ord(caracter) >= ord("a")) and (ord(caracter) <= ord("z")))):
+            linhasColunas.append([qtdLinhas, qtdColunas])
             colunaAtual = qtdColunas
             linhaAtual = qtdLinhas
             if ((ord(caracter) >= ord("0")) and (ord(caracter) <= ord("9"))):
@@ -188,6 +197,7 @@ def leArquivo(nomeArquivo):
                                 qtdColunas = 0
                                 terminou = True
                         terminouNumero = True
+                        linhasColunas.pop()
                         print("\n  ***** Erro lexico na linha ", linhaAtual, " coluna ", colunaAtual, " *****")
                     else:
                         lerCaracter = False
@@ -198,7 +208,7 @@ def leArquivo(nomeArquivo):
 # função que cria os Tokens, cada Token é um objeto da classe "token",
 # o tipo de cada token é verificado na tabela de transição e o valor
 # é obtido através do índice ta tabela de símbolos
-def criaTokens(lexemas, tabelaDeTransicao, tabelaDeSimbolos):
+def criaTokens(lexemas, tabelaDeTransicao, tabelaDeSimbolos, linhasColunas):
     tokens = []
 
     for i in range(len(lexemas)): # verificação de todos do lexemas
@@ -206,7 +216,7 @@ def criaTokens(lexemas, tabelaDeTransicao, tabelaDeSimbolos):
         valor = lexemas[i]
         if (tipo == "identificador") or (tipo == "constNumerica"):
             valor = tabelaDeSimbolos.adiciona(lexemas[i], tipo)
-        tokens.append(Token(tipo, valor))
+        tokens.append(Token(tipo, valor,linhasColunas[i][0], linhasColunas[i][1]))
 
     return tokens
 
@@ -218,14 +228,18 @@ def criaTabelaDeSimbolos():
 def main():
     nomeArquivo = input("Nome arquivo: ")
     
-    lexemas = leArquivo(nomeArquivo)
+    linhasColunas = []
+    lexemas = leArquivo(nomeArquivo, linhasColunas)
+    
+    print("\n\n  ----- LinhasColunas -----\n\n", linhasColunas)
+    
     print("\n\n  ----- Lexemas -----\n\n", lexemas)
     
     tabelaDeTransicao = geraTabelaDirecionada() # tabela preenchida
     
     tabelaDeSimbolos = criaTabelaDeSimbolos()
     
-    tokens = criaTokens(lexemas, tabelaDeTransicao, tabelaDeSimbolos)
+    tokens = criaTokens(lexemas, tabelaDeTransicao, tabelaDeSimbolos, linhasColunas)
     print("\n\n  ----- Tokens -----\n")
     for i in range(len(tokens)):
         tokens[i].imprime()

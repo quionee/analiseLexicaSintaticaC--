@@ -46,15 +46,20 @@ class Parser:
         if (self.var_declaracao()):
             print("VAR_DECLARACAO")
             return True
-        elif (self.fun_declaracao()):
-            self.posicaoAtual = indice
-            print("FUN_DECLARACAO()")
-            return True
+        # elif (self.fun_declaracao()):
+        #     self.posicaoAtual = indice
+        #     print("FUN_DECLARACAO()")
+        #     return True
         else:
             return False
 
     def var_declaracao(self):
-        if (self.tipo_especificador()):
+        if (self.match("struct")):
+            print("ENTREI PRIMEIRO IF")
+            return self.tipo_especificador()
+
+        elif (self.tipo_especificador()):
+            print("tokenAtual: ", self.tokenAtual)
             self.proximoToken()
             if (self.ident()):
                 self.proximoToken()
@@ -70,6 +75,8 @@ class Parser:
                         if (self.fecha_colchete()):
                             print("D")
                             self.proximoToken()
+                            if (self.match(";")):
+                                return True
                             while (self.abre_colchete()):
                                 print("E")
                                 self.proximoToken()
@@ -80,23 +87,34 @@ class Parser:
                                         print("G")
                                         self.proximoToken()
                                         return self.match(";")
-        #~ return False
+        return False
     
     def tipo_especificador(self):
         if ((self.match("int")) or (self.match("float")) or (self.match("char")) or (self.match("void"))):
             return True
         elif (self.match("struct")):
+            self.proximoToken()
             if (self.ident()):
+                self.proximoToken()
                 if (self.abre_chave()):
-                    if (self.atributos_declaracao()):
-                        if (self.fecha_chave()):
-                            print("NADA")
+                    self.proximoToken()
+                    return self.atributos_declaracao()
         else:
             return False
 
-    # def atributos_declaracao(self):
-        
+    def atributos_declaracao(self):
+        print("tokenAtual adij: ", self.tokenAtual)
+        retorno = self.var_declaracao()
+        self.proximoToken()
+        while(retorno):
+            print("tokenAtual mano: ", self.tokenAtual)
+            if (self.tokenAtual == "}"):
+                return True
+            retorno = self.var_declaracao()
+            self.proximoToken()
 
+            print("while: ", retorno)
+        return retorno
 
     # def fun_declaracao(self):
     #     self.tipo_especificador()

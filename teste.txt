@@ -1,3 +1,8 @@
-ui x;
-char y[5][4];
-int lorena;
+9ui mano;
+struct lorena {
+    int x;
+    int y;
+}
+float x1;
+int x2;
+char oi[5];
