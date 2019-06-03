@@ -229,6 +229,7 @@ def criaTabelaDeSimbolos():
 
 def main():
     nomeArquivo = input("Nome arquivo: ")
+    # nomeArquivo = "teste.txt"
     
     linhasColunas = []
     lexemas = leArquivo(nomeArquivo, linhasColunas)

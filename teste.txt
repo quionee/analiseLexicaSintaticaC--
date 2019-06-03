@@ -1,16 +1,44 @@
-int x;
-float y;
-float i;
+/*struct pessoa {
+    int id;
+    char nome;
+    float salario;
+} pessoa;
 
-int frutas(int x, int y) {
-    int mana;
-    int x;
-    x = 10;
+struct animal {
+    char apelido;
+    char especie;
+} animal;*/
+
+void frutas(int x, float y, char vetor[]) {
     if (mana == 3){
-        int mana;
+        float cara;
     }
-    
-    /*i = 2 - x;
-    i = x - 3;
+    /*
+    int mana;
+    float aux1;
+    float aux2;
+    int aux3;
+    mana = ((3 + 5) + (4 * 7));
+    aux1 = ((9 + 4) * 6);
+    x = mana + 7;
+    y = 8;
+    aux1 = 9 - 5;
+    aux = 20 / 4;
     */
+    return;
+}
+
+float funcao(void) {
+    char nada;
+    nada = 8;
+    return 8 - 3 * 4 + nada / 5;
+}
+
+int main(void) {
+    int inicio;
+    float fim;
+    int tempo;
+    tempo = 0;
+    tempo = fim - inicio;
+    return 0;
 }
