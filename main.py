@@ -59,7 +59,8 @@ def leArquivo(nomeArquivo, linhasColunas):
         # condição usada para verificar os delimitadores "{", "[", "}", "]", ";",
         # e o operador aritmético "*"
         elif ((caracter == "{") or (caracter == "[") or (caracter == "}") or (caracter == "]")
-        or (caracter == "(") or (caracter == ")") or (caracter == "*") or (caracter == ";") or (caracter == ",")):
+             or (caracter == "(") or (caracter == ")") or (caracter == "*") or (caracter == ";")
+             or (caracter == ",") or (caracter == ".")):
             linhasColunas.append([qtdLinhas, qtdColunas])
             if (palavra != ""):
                 lexemas.append(palavra)
@@ -228,8 +229,8 @@ def criaTabelaDeSimbolos():
     return tabelaDeSimbolos
 
 def main():
-    nomeArquivo = input("Nome arquivo: ")
-    # nomeArquivo = "teste.txt"
+    # nomeArquivo = input("Nome arquivo: ")
+    nomeArquivo = "teste.txt"
     
     linhasColunas = []
     lexemas = leArquivo(nomeArquivo, linhasColunas)

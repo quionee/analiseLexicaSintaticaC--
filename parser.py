@@ -23,14 +23,14 @@ class Parser:
             else:
                 self.tokenAtual = self.tokens[self.posicaoAtual].valor
             self.posicaoAtual += 1
-        print("\nproximoToken(): ", self.tokenAtual, "\n")
+        # print("\nproximoToken(): ", self.tokenAtual, "\n")
 
-    def erro(self):
+    def erro(self): # sem OK, porque não sei como vamos fazer
         self.errosAtuais.append("Erro sintático na linha " + str(self.tokens[self.posicaoAtual - 1].linha)
                                 + " e coluna " + str(self.tokens[self.posicaoAtual - 1].coluna) + " : "
                                 + str(self.tokens[self.posicaoAtual - 1].valor))
 
-    def removeErrosRepetidos(self):
+    def removeErrosRepetidos(self): # sem OK, porque não sei como vamos fazer
         self.errosAtuais = list(set(self.errosAtuais)) # remove elementos repetidos
 
     def voltaPosicao(self, indice): # OK
@@ -71,9 +71,7 @@ class Parser:
             return True
         return False
 
-    # <var-declaração> ::= <tipo-especificador> <ident> ; | <tipo-especificador> <ident> <abre-colchete>
-
-    def var_declaracao(self):
+    def var_declaracao(self): # OK
         indice = self.posicaoAtual
         if (self.tipo_especificador()):
             self.proximoToken()
@@ -124,7 +122,7 @@ class Parser:
     def atributos_declaracao(self): # OK
         retorno = self.var_declaracao()
         self.proximoToken()
-        while(retorno):
+        while (retorno):
             if (self.tokenAtual == "}"):
                 return True
             retorno = self.var_declaracao()
@@ -209,7 +207,6 @@ class Parser:
         if (self.abre_chave()):
             self.proximoToken()
             if (self.local_declaracoes()):
-                self.proximoToken()
                 if (self.comando_lista()):
                     self.proximoToken()
                     if (self.fecha_chave()):
@@ -227,8 +224,6 @@ class Parser:
             self.erro()
             return False
 
-    # <composto-decl> ::= <abre-chave> <local-declara¸c˜oes> <comando-lista> <fecha-chave>
-
     def local_declaracoes(self): # OK
         continua = self.var_declaracao()
         while (continua):
@@ -238,10 +233,7 @@ class Parser:
             if not(continua):
                 self.posicaoAtual = indice - 1
                 self.proximoToken()
-                
         return True
-
-    # <local-declara¸c˜oes> ::= {<var-declara¸c˜ao>}
 
     def comando_lista(self): # OK
         continua = self.comando()
@@ -253,8 +245,6 @@ class Parser:
                 self.posicaoAtual = indice - 1
                 self.proximoToken()
         return True
-            
-    # <comando-lista> ::= { <comando> }
         
     def comando(self): # OK
         indice = self.posicaoAtual
@@ -279,8 +269,6 @@ class Parser:
 
         self.erro()
         return False
-
-    # <comando> ::= <express˜ao-decl> | <composto-decl> | <sele¸c˜ao-decl> | <itera¸c˜ao-decl> | <retorno-decl>
     
     def expressao_decl(self): # OK
         indice = self.posicaoAtual
@@ -298,15 +286,12 @@ class Parser:
         self.erro()
         return False
 
-    # <express˜ao-decl> ::= <express˜ao> ; | ;
-
-    def selecao_decl(self):
+    def selecao_decl(self): # OK
         if (self.match("if")):
             self.proximoToken()
             if (self.match("(")):
                 self.proximoToken()
                 if (self.expressao()):
-                    self.proximoToken()
                     if (self.match(")")):
                         self.proximoToken()
                         if (self.comando()):
@@ -338,15 +323,12 @@ class Parser:
             self.erro()
             return False
 
-    # <sele¸c˜ao-decl> ::= if ( <express˜ao> ) <comando> | if ( <express˜ao> ) <comando> else <comando>
-
-    def iteracao_decl(self):
+    def iteracao_decl(self): # OK
         if (self.match("while")):
             self.proximoToken()
             if (self.match("(")):
                 self.proximoToken()
                 if (self.expressao()):
-                    self.proximoToken()
                     if (self.match(")")):
                         self.proximoToken()
                         if (self.comando()):
@@ -366,8 +348,6 @@ class Parser:
         else:
             self.erro()
             return False
-                        
-    # <itera¸c˜ao-decl> ::= while ( <express˜ao> ) <comando>
 
     def retorno_decl(self): # OK
         if (self.match("return")):
@@ -386,8 +366,6 @@ class Parser:
         else:
             self.erro()
             return False
-
-    # <retorno-decl> ::= return ; | return <express˜ao> ;
     
     def expressao(self): # OK
         indice = self.posicaoAtual
@@ -409,8 +387,6 @@ class Parser:
         else:
             self.erro()
             return False
-
-    # <express˜ao> ::= <var> = <express˜ao> | <express˜ao-simples>
     
     def var(self): # OK
         if (self.ident()):
@@ -419,7 +395,6 @@ class Parser:
             if (self.abre_colchete()):
                 self.proximoToken()
                 if (self.expressao()):
-                    self.proximoToken()
                     if (self.fecha_colchete()):
                         indice = self.posicaoAtual
                         self.proximoToken()
@@ -442,7 +417,6 @@ class Parser:
     def expressao_simples(self): # OK
         if (self.expressao_soma()):
             indice = self.posicaoAtual
-            self.proximoToken()
             if (self.relacional()):
                 self.proximoToken()
                 if (self.expressao_soma()):
@@ -451,15 +425,12 @@ class Parser:
                     self.erro()
                     return False
             else:
-                self.voltaPosicao(indice)
                 return True
         else:
             self.erro()
             return False
 
-    # <express˜ao-simples> ::= <express˜ao-soma> <relacional> <express˜ao-soma> | <express˜ao-soma>
-
-    def relacional(self):
+    def relacional(self): # OK
         if ((self.match("<=")) or (self.match("<")) or (self.match(">"))
            or (self.match(">=")) or (self.match("==")) or (self.match("!="))):
             return True
@@ -484,9 +455,6 @@ class Parser:
         else:
             self.erro()
             return False
-
-
-    # <express˜ao-soma> ::= <termo> {<soma> <termo>}
     
     def soma(self): # OK
         if ((self.match("+")) or (self.match("-"))):
@@ -519,8 +487,6 @@ class Parser:
             self.erro()
             return False
 
-    # <fator> {<mult> <fator>}
-
     def mult(self): # OK
         if ((self.match("*")) or (self.match("/"))):
             return True
@@ -541,13 +507,13 @@ class Parser:
                 self.erro()
                 return False
 
-        elif (self.var()):
-            # print("\n\n                   É VAR\n\n")
-            return True
-        
-        self.voltaPosicao(indice)
         if (self.ativacao()):
             # print("\n\n                   É ATIVAÇÃO\n\n")
+            return True
+
+        self.voltaPosicao(indice)
+        if (self.var()):
+            # print("\n\n                   É VAR\n\n")
             return True
         
         self.voltaPosicao(indice)
@@ -563,15 +529,14 @@ class Parser:
         self.erro()
         return False
 
-    # <fator> ::= ( <express˜ao> ) | <var> | <ativa¸c˜ao> | <num> | <num-int>
-
-    def ativacao(self):
+    def ativacao(self): # OK
         if (self.ident()):
             self.proximoToken()
             if (self.match("(")):
                 self.proximoToken()
-                if (self.args()):
-                    self.proximoToken()
+                if (self.match(")")):
+                    return True
+                elif (self.args()):
                     if (self.match(")")):
                         return True
                     else:
@@ -587,29 +552,20 @@ class Parser:
             self.erro()
             return False
 
-    # <ativa¸c˜ao> ::= <ident> ( <args> )
-
-    def args(self):
-        self.arq_lista()
-        return True
-
-    # <args> ::= [<arg-lista>]
+    def args(self): # OK
+        return self.arg_lista()
         
-    def arg_lista(self):
+    def arg_lista(self): # OK
         if (self.expressao()):
-            self.proximoToken()
             while (self.match(",")):
                 self.proximoToken()
                 if not(self.expressao()):
                     self.erro()
                     return False
-                self.proximoToken()
+            return True
         else:
             self.erro()
             return False
-
-
-    # <arg-lista> ::= <express˜ao> {, <express˜ao>}
     
     def num(self): # A TERMINAR
         numero = self.tokenAtual
@@ -624,17 +580,56 @@ class Parser:
                 while (i < len(numero)):
                     self.tokenAtual = numero[i]
                     if not(self.digito()):
+                        # GENTE, acredito que ele nunca vá entrar aqui
                         aux = False
                     i += 1
+
+                indice = self.posicaoAtual
+                self.proximoToken()
+                if (self.match(".")):
+                    self.proximoToken()
+                    i = 1
+                    numero = self.tokenAtual
+                    self.tokenAtual = numero[0]
+                    
+                    if (self.digito()):
+                        aux = True
+                        while (i < len(numero)):
+                            self.tokenAtual = numero[i]
+                            if not(self.digito()):
+                                # GENTE, acredito que ele nunca vá entrar aqui
+                                aux = False
+                            i += 1
+                    
+                    indice = self.posicaoAtual
+                    self.proximoToken()
+                    if (self.match("E")):
+                        numero = self.tokenAtual
+                        self.tokenAtual = numero[0]
+                        if ((self.match("+")) or (self.match("-")) or (self.digito())):
+                            i = 1
+                            if not(self.digito()):
+                                self.tokenAtual = numero[1]
+                                i += 1
+                            if (self.digito()):
+                                aux = True
+                                while (i < len(numero)):
+                                    self.tokenAtual = numero[i]
+                                    if not(self.digito()):
+                                        # GENTE, acredito que ele nunca vá entrar aqui
+                                        aux = False
+                                    i += 1
+
+                self.voltaPosicao(indice)
                 return aux
             else:
                 return False
         else:
             return False
 
-    # [+ | -] <d´ıgito> {<d´ıgito>} [. <d´ıgito> {<d´ıgito>}] [E [+ | -] <d´ıgito> {<d´ıgito>}]
+    # [+ | -] <dígito> {<dígito>} [. <dígito> {<dígito>}] [E [+ | -] <dígito> {<dígito>}]
 
-    def num_int(self):
+    def num_int(self): # OK
         i = 1
         numero = self.tokenAtual
         numero = str(numero)
