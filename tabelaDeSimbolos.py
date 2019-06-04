@@ -22,7 +22,7 @@ class TabelaDeSimbolos:
 
     def consulta(self, lexema):
         for i in range(len(self.tabelaDeSimbolos)):
-            if (self.tabelaDeSimbolos[i][1] == lexema):
+            if (self.tabelaDeSimbolos[i][1] == lexema and self.tabelaDeSimbolos[i][2] == "identificador"):
                 return self.tabelaDeSimbolos[i][0]
         return False
     
@@ -33,7 +33,7 @@ class TabelaDeSimbolos:
         tabela.align["Lexema"] = "1"
         tabela.align["Tipo"] = "1"
 
-        for i in range(self.qtdLinhas):
+        for i in range(len(self.tabelaDeSimbolos)):
             tabela.add_row([self.tabelaDeSimbolos[i][0], self.tabelaDeSimbolos[i][1], self.tabelaDeSimbolos[i][2]])
         
         print(tabela)

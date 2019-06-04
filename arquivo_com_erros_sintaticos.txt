@@ -1,0 +1,91 @@
+struct pessoa {
+    int id;
+    char a;
+    float salario;
+} pessoa;
+
+struct animal {
+    char apelido;
+    char especie;
+} animal;
+
+float funcao(void) {
+    char nada;
+    nada = 8.68;
+    return 11 -  * 37 + nada / 5;
+}
+
+void frutas(int x, float y, char vetor[]) {
+    int morango;
+    float aux1[6];
+    float aux2;
+    int aux3;
+    morango = ((3 + 53) + (14 * 327));
+    aux1 = ((90 + 42) * 67);
+    x = morango + 7;
+    y = 81;
+    aux1 = 9 - 57;
+    aux = 20 / 4;
+    
+    if (vetor[1] == 233){
+        int aaux;
+        aaux = 76; 
+        aux3 = 41.555 * 68;
+    }
+    else {
+        aux1 = aux2;
+        aux3 = 5;
+    }
+
+    if (6 >= x[t]){
+        float variavel;
+        variavel = aux1;
+    }
+    else {
+        aux3 = aux1;
+    }
+
+    if (x != y) {
+        float variavel1;
+    }
+
+    while (morango < 2) {
+        int melancia;
+        melacia = 48.14;
+        morango = morango + x * 13;
+    }
+
+    while (x >= aux3) {
+        x = morango / aux3;
+        y = x * morango;
+    }
+
+    return;
+}
+
+int main(void) {
+    float x;
+    int inicio;
+    float fim;
+    int tempo;
+    float y;
+    float resultado;
+    y = 4.65E-75;
+    tempo = 0;
+    tempo = fim - inicio;
+    x = 0E5;
+    x = 34.2E692;
+    resultado = y * x;
+    x = 2.7;
+    x = 4E99;
+    y = 8.65E-75;
+    y = 8.93E+15;
+    tempo = 34.92E692;
+    resultado = 1;
+
+    funcao(aux);
+    frutas();
+    cores(x, y, z);
+
+    return 0;
+}

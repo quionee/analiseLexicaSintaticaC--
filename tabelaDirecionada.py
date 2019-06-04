@@ -9,9 +9,10 @@ entrada = {'a':12, 'b':16, 'c':5, 'd':15, 'e':3, 'f':1, 'g':16, 'h':14, 'i':0, '
 # dicionário de estados finais a chave é o número do estado final 
 # e valor o tipo de token correspondente àquele estado final
 estadosFinais = {4:'int', 10:'float', 17:'struct', 22:'else', 24:'if', 30:'while', 35:'char', 40:'void',
-47:'return', 52:'comentario', 54:'identificador', 56:'+', 58:'-', 60:'*', 61:'/', 63:'>', 65:'<', 66:'=', 68:'>=', 70:'<=',
-73:'==', 76:'!=', 80:'abreChave', 78:'fechaChave', 82:'abreColchete', 84:'fechaColchete', 86:'constNumerica',
-89:'constNumerica', 91:'pontoVirgula', 93:'abreParenteses', 95:'fechaParenteses', 97:'virgula', 102:'constNumerica'}
+47:'return', 52:'comentario', 54:'identificador', 56:'+', 58:'-', 60:'*', 61:'/', 63:'>', 65:'<', 66:'=',
+68:'>=', 70:'<=', 73:'==', 76:'!=', 80:'abreChave', 78:'fechaChave', 82:'abreColchete', 84:'fechaColchete',
+86:'constNumerica', 89:'constNumerica', 91:'pontoVirgula', 93:'abreParenteses', 95:'fechaParenteses',
+97:'virgula', 102:'constNumerica'}
 
 # função que lê o arquivo com as transições do automato e preenche a matriz
 # a ordem dos elementos são ESTADO ATUAL / caracter de leitura / ESTADO DE DESTINO

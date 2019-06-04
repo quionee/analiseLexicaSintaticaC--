@@ -60,7 +60,7 @@ def leArquivo(nomeArquivo, linhasColunas):
         # e o operador aritmético "*"
         elif ((caracter == "{") or (caracter == "[") or (caracter == "}") or (caracter == "]")
              or (caracter == "(") or (caracter == ")") or (caracter == "*") or (caracter == ";")
-             or (caracter == ",") or (caracter == ".")):
+             or (caracter == ",") or (caracter == ".") or (caracter == "E")):
             linhasColunas.append([qtdLinhas, qtdColunas])
             if (palavra != ""):
                 lexemas.append(palavra)
@@ -223,36 +223,32 @@ def criaTokens(lexemas, tabelaDeTransicao, tabelaDeSimbolos, linhasColunas):
 
     return tokens
 
-
 def criaTabelaDeSimbolos():
     tabelaDeSimbolos = TabelaDeSimbolos()
     return tabelaDeSimbolos
 
 def main():
-    # nomeArquivo = input("Nome arquivo: ")
-    nomeArquivo = "teste.txt"
+    nomeArquivo = input("Nome arquivo: ")
     
     linhasColunas = []
     lexemas = leArquivo(nomeArquivo, linhasColunas)
-    
-    print("\n\n  ----- LinhasColunas -----\n\n", linhasColunas)
-    
-    print("\n\n  ----- Lexemas -----\n\n", lexemas)
+
+    # print("\n\n  ----- Lexemas -----\n\n", lexemas)
     
     tabelaDeTransicao = geraTabelaDirecionada() # tabela preenchida
-    
     tabelaDeSimbolos = criaTabelaDeSimbolos()
     
     tokens = criaTokens(lexemas, tabelaDeTransicao, tabelaDeSimbolos, linhasColunas)
-    print("\n\n  ----- Tokens -----\n")
-    for i in range(len(tokens)):
-        tokens[i].imprime()
 
-    tabelaDeSimbolos.imprime()
-    print()
+    # print("\n\n  ----- Tokens -----\n")
+    # for i in range(len(tokens)):
+    #     tokens[i].imprime()
+    # tabelaDeSimbolos.imprime()
 
     parser = Parser(tokens, tabelaDeSimbolos.tabelaDeSimbolos)
     parser.programa()
+
+    tabelaDeSimbolos.imprime()
 
 if __name__ == "__main__":
     main()
