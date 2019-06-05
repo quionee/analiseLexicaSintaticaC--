@@ -1,18 +1,18 @@
 struct pessoa {
     int id;
-    char a;
+    char nome;        
     float salario;
-} pessoa;
+} pessoa             /*sem ponto e virgula*/
 
-struct animal {
+tipo animal {        /*tipo invalido*/
     char apelido;
     char especie;
 } animal;
 
-float funcao(void) {
+float funcao() {    /*funcao sem parametro*/
     char nada;
     nada = 8.68;
-    return 11 -  * 37 + nada / 5;
+    return 11 - * 100 + nada / 5;  /*dois operadores seguidos*/
 }
 
 void frutas(int x, float y, char vetor[]) {
@@ -20,38 +20,38 @@ void frutas(int x, float y, char vetor[]) {
     float aux1[6];
     float aux2;
     int aux3;
-    morango = ((3 + 53) + (14 * 327));
+    morango = ((31 + 53) + (149 * 327));
     aux1 = ((90 + 42) * 67);
-    x = morango + 7;
+    x = morango  7;     /*faltou operador*/
     y = 81;
     aux1 = 9 - 57;
     aux = 20 / 4;
     
     if (vetor[1] == 233){
         int aaux;
-        aaux = 76; 
+        aaux = 76;
         aux3 = 41.555 * 68;
-    }
+    /* faltou o fecha chaves */
     else {
         aux1 = aux2;
-        aux3 = 5;
+        aux3 = 5.78;
     }
 
-    if (6 >= x[t]){
+    if (573 >= x[t]){
         float variavel;
         variavel = aux1;
     }
-    else {
+    else  /*faltou abre chaves*/
         aux3 = aux1;
     }
 
-    if (x != y) {
+    if (x = y) { /* operador de atribuicao no lugar errado */
         float variavel1;
     }
 
     while (morango < 2) {
         int melancia;
-        melacia = 48.14;
+        melacia = 48,14; /* virgula no lugar de ponto*/
         morango = morango + x * 13;
     }
 
@@ -71,17 +71,17 @@ int main(void) {
     float y;
     float resultado;
     y = 4.65E-75;
-    tempo = 0;
+    tempo = 0.9;
     tempo = fim - inicio;
     x = 0E5;
     x = 34.2E692;
-    resultado = y * x;
+    resultado = y * x  /* faltou o ;*/
     x = 2.7;
     x = 4E99;
-    y = 8.65E-75;
+    y = 95.65E-75;
     y = 8.93E+15;
     tempo = 34.92E692;
-    resultado = 1;
+    resultado = 12;
 
     funcao(aux);
     frutas();
