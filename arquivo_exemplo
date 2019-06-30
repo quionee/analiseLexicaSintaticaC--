@@ -1,3 +1,4 @@
+/*
 struct pessoa {
     int id;
     char nome;
@@ -30,11 +31,11 @@ void frutas(int x, float y, char vetor[]) {
     if (vetor[1] == 233){
         int aaux;
         aaux = 76;
-        aux3 = 41.555 * 68;
+        aux3 = 41555 * 68;
     }
     else {
         aux1 = aux2;
-        aux3 = 5.78;
+        aux3 = 578;
     }
 
     if (573 >= x[t]){
@@ -51,7 +52,7 @@ void frutas(int x, float y, char vetor[]) {
 
     while (morango < 2) {
         int melancia;
-        melacia = 48.14;
+        melacia = 4814;
         morango = morango + x * 13;
     }
 
@@ -70,17 +71,17 @@ int main(void) {
     int tempo;
     float y;
     float resultado;
-    y = 4.65E-75;
-    tempo = 0.9;
+    y = 46575;
+    tempo = 09;
     tempo = fim - inicio;
-    x = 0E5;
-    x = 34.2E692;
+    x = 05;
+    x = 342692;
     resultado = y * x;
-    x = 2.7;
-    x = 4E99;
-    y = 95.65E-75;
-    y = 8.93E+15;
-    tempo = 34.92E692;
+    x = 27;
+    x = 499;
+    y = 95655;
+    y = 89315;
+    tempo = 3492692;
     resultado = 12;
 
     funcao(aux);
@@ -88,4 +89,13 @@ int main(void) {
     cores(x, y, z);
 
     return 0;
+} */
+
+void funcao(void) {
+    int a;
+    a = 45 + 18;
+    x = 10 * 8;
+    y = 18 * 7 + 9;
+    z = 90 + 8 * 9;
+    b = 19;
 }

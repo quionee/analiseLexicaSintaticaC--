@@ -2,6 +2,7 @@ from tabelaDirecionada import *
 from token import Token
 from tabelaDeSimbolos import TabelaDeSimbolos
 from parser import Parser
+from codigoTresEnderecos import CodigoTresEnderecos
 
 # função que lê o arquivo e retorna a tabela de lexemas
 def leArquivo(nomeArquivo, linhasColunas):
@@ -247,8 +248,10 @@ def main():
 
     parser = Parser(tokens, tabelaDeSimbolos.tabelaDeSimbolos)
     parser.programa()
-
     tabelaDeSimbolos.imprime()
+    codigoTresEnderecos = CodigoTresEnderecos(tokens, tabelaDeSimbolos.tabelaDeSimbolos)
+
+    
 
 if __name__ == "__main__":
     main()
