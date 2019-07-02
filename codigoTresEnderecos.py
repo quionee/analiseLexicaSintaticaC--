@@ -24,14 +24,14 @@ class CodigoTresEnderecos:
                 self.listaComandos.append(comando)
                 i = j
             i += 1
-   
+    
     # formata os comandos em quádruplas e insere na tabela
     def constroiTabela(self):
         idExpressao = 0
         for comando in self.listaComandos:
             # transforma comando em quádrupla retirando o '='
             if (len(comando) == 5):
-                comando.remove('=') 
+                comando.remove('=')
                 self.tabelaCodigos.append(comando)  
             # transforma comando em quádrupla preenchendo com espaços
             elif (len(comando) < 5):
@@ -39,7 +39,7 @@ class CodigoTresEnderecos:
                     comando.append(' ') 
                 self.tabelaCodigos.append(comando)
             # transforma comando em quádrupla criando outras quádruplas para os termos que estão sobrando
-            elif (len(comando) > 5): 
+            elif (len(comando) > 5):
                 comando.remove("=")
                 while (len(comando) > 4):
                     ehVezes = False
@@ -56,26 +56,29 @@ class CodigoTresEnderecos:
                             indice = i
                         i += 1
                     if (not ehVezes):
-                        for i in range(len(comando)):
+                        i = 0
+                        ehSoma = False
+                        while ((i < len(comando) - 1) and (not ehSoma)):
                             if((comando[i] == "+") or (comando[i] == "-")):
                                 aux.append('t' + str(idExpressao))
                                 aux.append(comando[i - 1])
                                 aux.append(comando[i])
                                 aux.append(comando[i + 1])
+                                ehSoma = True
                                 indice = i
+                            i += 1
 
                     self.tabelaCodigos.append(aux)
-                    comando[indice - 1] = 't' + str(idExpressao)
+                    comando[indice] = 't' + str(idExpressao)
                     # remove a parte da expressão que foi colocada em outra quádrupla
                     for token in comando:
-                        if token in aux:
+                        if (token in aux) and (token != "*") and (token != "+") and (token != "-") and (token != "/"):
                             comando.remove(token)
                     idExpressao += 1
+
                 # parte que sobrou do comando inicial
-                comando[indice-1] = 't' + str(idExpressao - 1)
+                comando[indice - 1] = 't' + str(idExpressao - 1)
                 self.tabelaCodigos.append(comando)
         #printa tabela códigos linha por linha
         for comando in self.tabelaCodigos:
             print("\n",comando)
-    
-        
