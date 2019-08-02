@@ -220,8 +220,6 @@ def criaTokens(lexemas, tabelaDeTransicao, tabelaDeSimbolos, linhasColunas):
             valor = tabelaDeSimbolos.adiciona(lexemas[i], tipo)
         tokens.append(Token(tipo, valor,linhasColunas[i][0], linhasColunas[i][1]))
 
-    # tokens.append(Token("#", "#", 0, 0))
-
     return tokens
 
 def criaTabelaDeSimbolos():
@@ -232,26 +230,25 @@ def main():
     nomeArquivo = input("Nome arquivo: ")
     
     linhasColunas = []
-    lexemas = leArquivo(nomeArquivo, linhasColunas)
+    lexemas = leArquivo("arquivos_teste/" + nomeArquivo, linhasColunas)
 
-    # print("\n\n  ----- Lexemas -----\n\n", lexemas)
+    print("\n\n  ----- Lexemas -----\n\n", lexemas)
     
     tabelaDeTransicao = geraTabelaDirecionada() # tabela preenchida
     tabelaDeSimbolos = criaTabelaDeSimbolos()
     
     tokens = criaTokens(lexemas, tabelaDeTransicao, tabelaDeSimbolos, linhasColunas)
 
-    # print("\n\n  ----- Tokens -----\n")
-    # for i in range(len(tokens)):
-    #     tokens[i].imprime()
-    # tabelaDeSimbolos.imprime()
+    print("\n\n  ----- Tokens -----\n")
+    for i in range(len(tokens)):
+        tokens[i].imprime()
+    tabelaDeSimbolos.imprime()
 
     parser = Parser(tokens, tabelaDeSimbolos.tabelaDeSimbolos)
     parser.programa()
     tabelaDeSimbolos.imprime()
-    codigoTresEnderecos = CodigoTresEnderecos(tokens, tabelaDeSimbolos.tabelaDeSimbolos)
+    # codigoTresEnderecos = CodigoTresEnderecos(tokens, tabelaDeSimbolos.tabelaDeSimbolos)
 
-    
 
 if __name__ == "__main__":
     main()
