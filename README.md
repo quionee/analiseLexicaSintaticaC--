@@ -2,13 +2,13 @@
 
 A descrição do que é pedido em cada etapa e as especificações da linguagem C-- estão na pasta *descricao*.
 
-Etapa 1 – Análise léxica
+#### Etapa 1 - Análise léxica
 Um analisador léxico para a linguagem C-- foi implementado. O programa também trata erros léxicos e ignora / remove comentários e espaços em branco.
 
-Etapa 2 – Análise sintática
+#### Etapa 2 – Análise sintática
 Um analisador sintático para a linguagem C-- foi implementado. O analisador tem a tarefa de varrer todo o código-fonte fornecido como entrada	e relatar os possíveis erros de sintaxe. E como saída temos os possíveis erros sintáticos e a árvore de análise sintática.
 
-Etapa 3 - Geração de código de três endereços
+#### Etapa 3 - Geração de código de três endereços
 Foi implementado nessa etapa o código de três endereços para expressões aritméticas básicas da linguagem C--. Como saída tem-se uma matriz com o formato de quádrupla: resultado, operando1, operador, operando2.
 
 *Observação:* a chamada para a etapa 3 está comentada no código, pois roda apenas para o arquivo de teste *arq_teste.txt*, para realizar a chamada, basta descomentar a linha *250* do arquivo *main.py*.
